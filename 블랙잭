@@ -1,0 +1,26 @@
+#include <stdio.h>
+int main() {
+	int n, m;
+	int card[100000];
+	int num = 100000;
+	int sum_card = 0;
+	int result = 0;
+	scanf("%d %d", &n, &m);
+	for (int i = 0; i < n; i++) {
+		scanf("%d", &card[i]);
+	}
+	for (int i = 0; i < n-2; i++) {
+		for (int j = i+1; j < n - 1;j++) {
+			for (int k = j+1; k < n; k++) {
+				sum_card = card[i] + card[j] + card[k];
+				if (sum_card <= m) {
+					if (num > m - sum_card) {
+						result = sum_card;
+						num = m - sum_card;
+					}
+				}
+			}
+		}
+	}
+	printf("%d", result);
+}
