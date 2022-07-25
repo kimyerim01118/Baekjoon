@@ -1,0 +1,85 @@
+#include <stdio.h>
+int n, num, cnt = 0;
+char command[7];
+int stack[10000] = { 0, };
+
+void push(int i) {
+	scanf("%d", &num);
+	for (int j = 0; j <= i; j++) {
+		if (stack[j] == 0) {
+			stack[j] = num;
+			break;
+		}
+	}
+}
+void pop(int i) {
+	for (int j = i; j >= 0; j--) {
+		if (stack[j] != 0) {
+			printf("%d\n", stack[j]);
+			stack[j] = 0;
+			cnt = 1; 
+			break;
+		}
+	}
+	if (cnt == 0) {
+		printf("-1\n");
+	}
+	cnt = 0;
+}
+
+void top(int i) {
+	for (int j = i; j >= 0; j--) {
+		if (stack[j] != 0) {
+			printf("%d\n", stack[j]);
+			cnt = 1;
+			break;
+		}
+	}
+	if (cnt == 0) {
+		printf("-1\n");
+	}
+	cnt = 0;
+}
+int size(int i) {
+	for (int j = 0; j <= i; j++) {
+		if (stack[j] != 0) {
+			cnt++;
+		}
+	}
+	printf("%d\n", cnt);
+	return cnt;
+	cnt = 0;
+}
+void empty(int i){
+	if (size(i) == 0) {
+		printf("1\n");
+	}
+	else {
+		printf("0\n");
+	}
+	cnt = 0;
+}
+
+int main() {
+	scanf("%d", &n);
+	for (int i = 0; i < n; i++) {
+		scanf("%s", &command);
+		if (command[0] == 'p' && command[1] == 'u') {
+			push(i);
+		}
+		else if (command[0] == 'p') {
+			pop(i);
+		}
+		else if (command[0] == 't') {
+			top(i);
+			//pop
+		}
+		else if (command[0] == 's') {
+			size(i);
+		}
+
+		else if (command[0] == 'e') {
+			empty(i);
+		}
+	}
+}
