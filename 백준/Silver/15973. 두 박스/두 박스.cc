@@ -1,66 +1,29 @@
-#include <iostream>
+#include <stdio.h>
 
-using namespace std;
+struct line {
+  int s, e;
+};
+
+int inter(line a, line b) {
+  if (a.s > b.s) {
+    line tmp = a;
+    a = b;
+    b = tmp;
+  }
+  if (a.e < b.s) return 0;
+  else if (a.e == b.s) return 1;
+  else return 2;
+}
 
 int main() {
+  line x1, y1;
+  line x2, y2;
 
-	int stateX = 0;
-	int stateY = 0;
-	
-
-	int x1, y1, x2, y2;
-
-	int x3, y3, x4, y4;
-
-	cin >> x1 >> y1 >> x2 >> y2;
-	cin >> x3 >> y3 >> x4 >> y4;
-
-
-	if (x2 == x3 || x1 == x4) {
-		stateX = 1; // 맞닿음 1, 겹침 2 포함됨 3
-	}
-	else if (x2 > x3) {
-		if (x2 >= x4 && x1 <= x3) {
-			stateX = 3;
-		}
-		else if (x2 <= x4 && x1 >= x3) {
-			stateX = 3;
-		}
-		else {
-			stateX = 2;
-		}
-
-	}
-
-	if (y2 == y3 || y1 == y4) {
-		stateY = 1; // 맞닿음 1, 겹침 2 포함됨 3
-	}
-	else if (y2 > y3) {
-		if (y2 >= y4 && y1 <= y3) {
-			stateY = 3;
-		}
-		else if (y2 <= y4 && y1 >= y3) {
-			stateY = 3;
-		}
-		else {
-			stateY = 2;
-		}
-
-	}
-
-	if (stateX == 0 || stateY == 0) { // 둘중 하나라도 안만난다면?
-		printf("NULL");
-	}
-	else if (stateX == 1 || stateY == 1) { // 하나는 맞닿는 경우
-		if (stateX == stateY) { // 둘 다 맞닿으면 POINT
-			printf("POINT");
-		}
-		else {
-			printf("LINE");
-		}
-	}
-	else if (stateX + stateY >=4) {
-		printf("FACE");
-	}
-
+  scanf("%d%d%d%d", &x1.s, &y1.s, &x1.e, &y1.e);
+  scanf("%d%d%d%d", &x2.s, &y2.s, &x2.e, &y2.e);
+  int ix = inter(x1, x2), iy = inter(y1, y2);
+  if (ix == 2 && iy == 2) printf("FACE");
+  else if (ix == 1 && iy == 2 || ix == 2 && iy == 1) printf("LINE");
+  else if (ix == 1 && iy == 1) printf("POINT");
+  else printf("NULL");
 }
